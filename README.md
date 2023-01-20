@@ -71,7 +71,8 @@ EarlyStopping z biblioteki keras dzięki czemu uniknięto przetrenowania modelu.
 ### Znaki o niskiej wariancji
 Ze względu na niesekwencyjny charakter danych został zastosowany prosty model sieci neuronowej
 składający się z warstwy wejściowej, jednej warstwy ukrytej oraz warstwy wyjściowej.
-![image](https://user-images.githubusercontent.com/67105405/213810393-a5229d5c-136a-417b-a483-6168905290de.png)
+![image](https://user-images.githubusercontent.com/67105405/213816566-37d711e5-2dd8-479f-8906-85cbf291062b.png)
+
 Do modelu zostały dobrane funkcja straty – kategoryczna entropia krzyżowa, optymalizator
 – Adam, metryka wydajności – dokładność. Trenowanie modelu zakończyło się po 225 epokach,
 osiągając następujące wyniki dokładność na poziomie 98% oraz wartość funkcji straty – 0.34.
