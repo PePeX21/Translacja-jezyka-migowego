@@ -1,4 +1,5 @@
 # Translacja-jezyka-migowego
+![](https://github.com/PePeX21/Translacja-jezyka-migowego/blob/main/gif/ezgif.com-gif-maker.gif)
 
 
 # Tworzenie danych uczących
