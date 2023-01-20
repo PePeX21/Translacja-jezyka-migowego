@@ -55,3 +55,27 @@ cymi się znikomą zmiennością.
 
 Podczas tworzenia sekwencji zliczana była ilość klatek z nie nałożonymi punktami orientacyjnymi. Dla ręki sprawdzano, istnienie zer w wektorze natomiast dla dłoni sprawdzano, czy tablica jest pusta, następnie inicjowano ją pustymi znakami. Po zebraniu 30 klatek wartości równe zero były zamieniane na wartość średnią z poprzedzającej i następującej po niej klatce. wariancja obliczana była z całej poprawionej sekwencji. były zamieniane na wartość średnią z poprzedzającej i następującej po niej klatce. wariancja obliczana była z całej poprawionej sekwencji.
 
+##Rozwiązanie z użyciem rekurencyjnych sieci neuronowych
+
+Do trenowania architektur sieci dla tego rodzaju rozwiązania zostały wykorzystane dane
+zebrane za pomocą biblioteki MediaPipe. Ze względu na dokonany podział znaków na trzy pod-
+zbiory: znaki o niskiej wariancji, znaki wykonywane jedną ręką oraz znaki wykonywane obiema
+rękami do ostatecznego rozwiązania został wybrany jeden model dla każdego z nich. Do tre-
+nowania każdej z wymienionych w tym podrozdziale sieci została zastosowana funkcja reakcji
+EarlyStopping z biblioteki keras dzięki czemu uniknięto przetrenowania modelu.
+
+### Znaki o niskiej wariancji
+Ze względu na niesekwencyjny charakter danych został zastosowany prosty model sieci neu-
+ronowej składający się z warstwy wejściowej, jednej warstwy ukrytej oraz warstwy wyjściowej.
+![image](https://user-images.githubusercontent.com/67105405/213810393-a5229d5c-136a-417b-a483-6168905290de.png)
+Do modelu zostały dobrane funkcja straty – kategoryczna entropia krzyżowa, optymalizator
+– Adam, metryka wydajności – dokładność. Trenowanie modelu zakończyło się po 225 epokach,
+osiągając następujące wyniki dokładność na poziomie 98% oraz wartość funkcji straty – 0.34.
+Rysunek 5.5 przedstawia przebieg zmian wartości funkcji straty oraz dokładności podczas procesu
+uczenia modelu.
+
+### Modele dla danych sekwencyjnych
+
+
+Do trenowania modelu dla znaków wykonywanych jedną oraz obiema rękoma została wykorzystana następująca architektury rekurencyjnych sieci neuronowych.
+Sieć rekurencyjna składająca się z: warstwy wejściowej, warstwy wyjściowej, dwukierunkowych warstw komórek LSTM. Architektura sieci została przedstawiona na rysunku 5.9.
