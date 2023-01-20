@@ -81,3 +81,27 @@ Do trenowania modelu dla znaków wykonywanych jedną oraz obiema rękoma został
 Sieć rekurencyjna składająca się z: warstwy wejściowej, warstwy wyjściowej, dwukierunkowych warstw komórek LSTM. Do sieci zostały zastosowane następujące konfiguracje funkcja straty – kategoryczna entropia krzyżowa, optymalizator – Adam, metryka wydajności – dokładność.
 ![image](https://user-images.githubusercontent.com/67105405/213811195-fc178f31-968a-45a5-ba37-00fe847ff482.png)
 
+Istotne jest ograniczenie sytuacji, w której sieć neuronowa będzie próbowała dokonać predyk-
+cji znaku w oparciu o dane wejściowe z którymi nie spotkała się w procesie uczenia. Sekwencja
+taka powstaje w czasie przesunięcia ręki z zakończenia ostatniego znaku do początku nowego.
+Z tego względu zostały wprowadzone mechanizmy ograniczające szanse na detekcję z danych
+losowych. Mechanizmy graniczeń zostały opisane poniżej
+
+Słowo jest dodawane do zdania jeśli predykcja przekracza wymagany pułap pewności przez
+co najmniej 5 ostatnich klatek.
+
+Nie dozwolone jest dokonanie predykcji przez kolejne 20 klatek filmu jeśli zostało dodane
+słowo do zdania końcowego. jeśli pewność predykcji spadła lecz w dalszym ciągu znak wybierany
+z największą pewnością jest tym samym co ostatnio dodanym, predykcji nowego znaku nie może
+dokonać przez kolejne 15 klatek
+
+Jeśli wariancja z sekwencji wyliczonej na podstawie 10 ostatnich klatek spadnie poniżej warto-
+ści 0.1 świadczy to zakończeniu ruchu ręką. W tej sytuacji program postępuje tak jakby wariancja
+z ostatnich 30 klatek była mała. Po zakończeniu znaku wymagającego długiego ruchu i rozpoczę-
+ciu pokazywania znaku cechującego się małą wariancją dzięki temu mechanizmowi wykrywana
+jest konieczność zmiany sieci neuronowej.
+
+Jeśli wariancja z sekwencji wyliczonej na podstawie 10 ostatnich klatek ma wartość mniejszą
+od 0.4, to po przełączeniu się na detekcje znaku korzystającego z innego rodzaju sieci neuronowej,
+można dokonać predykcji jeśli przez co najmniej 4 ostatnie klatki została wybrana ta sama sieć
+neuronowa
