@@ -59,7 +59,7 @@ się znikomą zmiennością.
 
 Podczas tworzenia sekwencji zliczana była ilość klatek z nie nałożonymi punktami orientacyjnymi. Dla ręki sprawdzano, istnienie zer w wektorze natomiast dla dłoni sprawdzano, czy tablica jest pusta, następnie inicjowano ją pustymi znakami. Po zebraniu 30 klatek wartości równe zero były zamieniane na wartość średnią z poprzedzającej i następującej po niej klatce. wariancja obliczana była z całej poprawionej sekwencji. były zamieniane na wartość średnią z poprzedzającej i następującej po niej klatce. wariancja obliczana była z całej poprawionej sekwencji.
 
-##Rozwiązanie z użyciem rekurencyjnych sieci neuronowych
+#Rozwiązanie z użyciem rekurencyjnych sieci neuronowych
 
 Do trenowania architektur sieci dla tego rodzaju rozwiązania zostały wykorzystane dane
 zebrane za pomocą biblioteki MediaPipe. Ze względu na dokonany podział znaków na trzy pod
@@ -79,7 +79,7 @@ osiągając następujące wyniki dokładność na poziomie 98% oraz wartość fu
 Rysunek 5.5 przedstawia przebieg zmian wartości funkcji straty oraz dokładności podczas procesu
 uczenia modelu.
 
-# Modele dla danych sekwencyjnych
+## Modele dla danych sekwencyjnych
 
 
 Do trenowania modelu dla znaków wykonywanych jedną oraz obiema rękoma została wykorzystana następująca architektury rekurencyjnych sieci neuronowych.
