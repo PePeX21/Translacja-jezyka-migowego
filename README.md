@@ -1,11 +1,7 @@
 # Translacja-jezyka-migowego
-<br />
 ![](https://github.com/PePeX21/Translacja-jezyka-migowego/blob/main/gif/ezgif.com-gif-maker.gif)
-<br />
 ![](https://github.com/PePeX21/Translacja-jezyka-migowego/blob/main/gif/ezgif.com-gif-maker1.gif)
-<br />
 ![](https://github.com/PePeX21/Translacja-jezyka-migowego/blob/main/gif/ezgif.com-gif-maker2.gif)
-<br />
 
 # Tworzenie danych uczących
 W celu poprawy danych wejściowych skorzystano z zewnętrznej biblioteki MediaPipe pozwalającej na śledzenie dłoni i wyekstrahowanie z obrazu sylwetki postaci.
