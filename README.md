@@ -13,11 +13,11 @@ W wektor danych wchodzą punkty na rękach i ramionach (od 11 do 24), pozostałe
 nie są istotne dla predykcji. Punkty o parzystej pozycji w tablicy były przypisywane do zmiennej
 określającej prawą rękę, natomiast nieparzyste do zmiennej określającej lewą rękę.
 
-Punkty orientacyjne na głowie (od 0 do 10) zostały skoncentrowane do jednego punktu będą-
-cym odniesieniem dla całego układu. Wartości x i y są liczone względem krawędzi obrazu, lewy
+Punkty orientacyjne na głowie (od 0 do 10) zostały skoncentrowane do jednego punktu będącym
+odniesieniem dla całego układu. Wartości x i y są liczone względem krawędzi obrazu, lewy
 górny róg (0, 0), prawy dolny róg (100, 100). Obliczana jest różnica między każdym punktem
-orientacyjnym, a wartością skoncentrowanego punktu. Dzięki tej operacji ruch kamery bądź na-
-granie osoby porozumiewającej się językiem migowym w różnym kadrze nie wpływa na wartości
+orientacyjnym, a wartością skoncentrowanego punktu. Dzięki tej operacji ruch kamery bądź 
+nagranie osoby porozumiewającej się językiem migowym w różnym kadrze nie wpływa na wartości
 na osiach x i y.
 
 ![image](https://user-images.githubusercontent.com/67105405/213808510-057b1079-2239-438a-819a-d3ae4b94b180.png)
@@ -33,40 +33,40 @@ przestaje być konieczne tworzenie danych uczących osobno dla prawej i lewej r�
 
 ## Zbieranie danych dla 3 różnych sieci głębokiego uczenia maszynowego
 
-Motywacja: użycie jednej sieci neuronowej natrafiło na szereg trudności. Mimo ogranicze-
-nia wektora danych do istotnych informacji, zbiór danych uczących był zbyt mały by w spo-
-sób zadowalający wytrenować sieć neuronową do klasyfikacji 20 znaków. W przypadku znaków
+Motywacja: użycie jednej sieci neuronowej natrafiło na szereg trudności. Mimo ograniczenia
+wektora danych do istotnych informacji, zbiór danych uczących był zbyt mały by w 
+sposób zadowalający wytrenować sieć neuronową do klasyfikacji 20 znaków. W przypadku znaków
 prezentowanych przez ruch tylko jednej ręki dane pochodzące z drugiej utrudniały prawidłową
-klasyfikację. Dane były zainicjowane przypadkowi wartościami pochodzącymi z poprzedniej pre-
-dykcji lub zerami. Podczas tworzenia nagrania nie jest możliwe nałożenie punktów orientacyjnych
+klasyfikację. Dane były zainicjowane przypadkowi wartościami pochodzącymi z poprzedniej 
+predykcji lub zerami. Podczas tworzenia nagrania nie jest możliwe nałożenie punktów orientacyjnych
 na każdą klatkę z użyciem biblioteki MediaPipe. Dodatkowo nie zawsze na nagraniu widoczne
-są obie ręce. Konsekwencją było istnienie zer w wektorze danych. Sieć neuronowa ulegała prze-
-uczeniu utożsamiając istnienie zer na poszczególnych pozycjach w sekwencji z znakiem. Prostym
+są obie ręce. Konsekwencją było istnienie zer w wektorze danych. Sieć neuronowa ulegała 
+przeuczeniu utożsamiając istnienie zer na poszczególnych pozycjach w sekwencji z znakiem. Prostym
 rozwiązaniem tego problemu mogłoby być wymuszenie obecności obu rąk na klatce i nałożenie
 na nie punktów orientacyjnych. Ograniczyłoby to jednak funkcjonalność aplikacji. Użytkownik
-zmuszony byłby do stworzenia sztucznych warunków, obecności 2 rąk na nagraniu nawet w sy-
-tuacji, gdy znak jest wykonywany jest jedną ręką. Dodatkowo stworzenie nagrania złożonego z
+zmuszony byłby do stworzenia sztucznych warunków, obecności 2 rąk na nagraniu nawet w 
+sytuacji, gdy znak jest wykonywany jest jedną ręką. Dodatkowo stworzenie nagrania złożonego z
 samych klatek na których udałoby się nałożyć punkty orientacyjne jest niemal niemożliwe.
 
-Z wyżej wymienionych powodów zdecydowano się podzielić znaki na 3 różne kategorie i do-
-konywać predykcji dedykowanymi do tego sieciami neuronowymi. Stworzono zbiory danych dla
-znaków wykonywanych jedną ręką, znaków wykonywanych dwoma rękami oraz znaków cechują-
-cymi się znikomą zmiennością.
+Z wyżej wymienionych powodów zdecydowano się podzielić znaki na 3 różne kategorie i 
+dokonywać predykcji dedykowanymi do tego sieciami neuronowymi. Stworzono zbiory danych dla
+znaków wykonywanych jedną ręką, znaków wykonywanych dwoma rękami oraz znaków cechującymi
+się znikomą zmiennością.
 
 Podczas tworzenia sekwencji zliczana była ilość klatek z nie nałożonymi punktami orientacyjnymi. Dla ręki sprawdzano, istnienie zer w wektorze natomiast dla dłoni sprawdzano, czy tablica jest pusta, następnie inicjowano ją pustymi znakami. Po zebraniu 30 klatek wartości równe zero były zamieniane na wartość średnią z poprzedzającej i następującej po niej klatce. wariancja obliczana była z całej poprawionej sekwencji. były zamieniane na wartość średnią z poprzedzającej i następującej po niej klatce. wariancja obliczana była z całej poprawionej sekwencji.
 
 ##Rozwiązanie z użyciem rekurencyjnych sieci neuronowych
 
 Do trenowania architektur sieci dla tego rodzaju rozwiązania zostały wykorzystane dane
-zebrane za pomocą biblioteki MediaPipe. Ze względu na dokonany podział znaków na trzy pod-
+zebrane za pomocą biblioteki MediaPipe. Ze względu na dokonany podział znaków na trzy pod
 zbiory: znaki o niskiej wariancji, znaki wykonywane jedną ręką oraz znaki wykonywane obiema
-rękami do ostatecznego rozwiązania został wybrany jeden model dla każdego z nich. Do tre-
-nowania każdej z wymienionych w tym podrozdziale sieci została zastosowana funkcja reakcji
+rękami do ostatecznego rozwiązania został wybrany jeden model dla każdego z nich. Do 
+trenowania każdej z wymienionych w tym podrozdziale sieci została zastosowana funkcja reakcji
 EarlyStopping z biblioteki keras dzięki czemu uniknięto przetrenowania modelu.
 
 ### Znaki o niskiej wariancji
-Ze względu na niesekwencyjny charakter danych został zastosowany prosty model sieci neu-
-ronowej składający się z warstwy wejściowej, jednej warstwy ukrytej oraz warstwy wyjściowej.
+Ze względu na niesekwencyjny charakter danych został zastosowany prosty model sieci neuronowej
+składający się z warstwy wejściowej, jednej warstwy ukrytej oraz warstwy wyjściowej.
 ![image](https://user-images.githubusercontent.com/67105405/213810393-a5229d5c-136a-417b-a483-6168905290de.png)
 Do modelu zostały dobrane funkcja straty – kategoryczna entropia krzyżowa, optymalizator
 – Adam, metryka wydajności – dokładność. Trenowanie modelu zakończyło się po 225 epokach,
@@ -78,4 +78,6 @@ uczenia modelu.
 
 
 Do trenowania modelu dla znaków wykonywanych jedną oraz obiema rękoma została wykorzystana następująca architektury rekurencyjnych sieci neuronowych.
-Sieć rekurencyjna składająca się z: warstwy wejściowej, warstwy wyjściowej, dwukierunkowych warstw komórek LSTM. Architektura sieci została przedstawiona na rysunku 5.9.
+Sieć rekurencyjna składająca się z: warstwy wejściowej, warstwy wyjściowej, dwukierunkowych warstw komórek LSTM. Do sieci zostały zastosowane następujące konfiguracje funkcja straty – kategoryczna entropia krzyżowa, optymalizator – Adam, metryka wydajności – dokładność.
+![image](https://user-images.githubusercontent.com/67105405/213811195-fc178f31-968a-45a5-ba37-00fe847ff482.png)
+
