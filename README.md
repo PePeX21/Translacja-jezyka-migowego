@@ -1,5 +1,7 @@
 # Translacja-jezyka-migowego
 
+
+# Tworzenie danych uczących
 W celu poprawy danych wejściowych skorzystano z zewnętrznej biblioteki MediaPipe pozwalającej na śledzenie dłoni i wyekstrahowanie z obrazu sylwetki postaci.
 ![image](https://user-images.githubusercontent.com/67105405/213808018-eea2d6ba-be1d-47b9-a597-5d67ce4c8675.png)
 
@@ -74,7 +76,7 @@ osiągając następujące wyniki dokładność na poziomie 98% oraz wartość fu
 Rysunek 5.5 przedstawia przebieg zmian wartości funkcji straty oraz dokładności podczas procesu
 uczenia modelu.
 
-### Modele dla danych sekwencyjnych
+# Modele dla danych sekwencyjnych
 
 
 Do trenowania modelu dla znaków wykonywanych jedną oraz obiema rękoma została wykorzystana następująca architektury rekurencyjnych sieci neuronowych.
