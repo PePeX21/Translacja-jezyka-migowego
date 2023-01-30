@@ -1,4 +1,5 @@
 # Translacja-jezyka-migowego
+( Gify mogą się chwilkę ladowac )
 ![](https://github.com/PePeX21/Translacja-jezyka-migowego/blob/main/gif/ezgif.com-gif-maker.gif) <br /><br />
 ![](https://github.com/PePeX21/Translacja-jezyka-migowego/blob/main/gif/ezgif.com-gif-maker1.gif) <br /><br />
 ![](https://github.com/PePeX21/Translacja-jezyka-migowego/blob/main/gif/ezgif.com-gif-maker2.gif) <br /><br />
